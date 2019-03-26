@@ -1,4 +1,8 @@
 'use strict'
+
+// 1---
+const axios = require('axios')
+
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
@@ -22,6 +26,24 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   // these devServer options should be customized in /config/index.js
   devServer: {
+
+    // 2--- 代理接口
+    before(app) {
+      app.get('/getDiscList', function (req, res) {
+        var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
+        axios.get(url, {
+          headers: {
+            referer: 'https://y.qq.com/'
+          },
+          params: req.query
+        }).then((response) => {
+          res.json(response.data)
+        }).catch((e) => {
+          console.log(e)
+        })
+      })
+    },
+
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
