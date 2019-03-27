@@ -228,3 +228,11 @@ better-scroll新版本参数发生变化。可查阅官方文档。
 2. [`this.$refs.list.style.bottom = bottom` 不能这样设置](https://blog.csdn.net/tangxiujiang/article/details/80660819)
 
 应该写成：  `this.$refs.list.$el.style.bottom = bottom`  
+
+3. [获取音乐播放源地址](https://blog.csdn.net/TCF_JingFeng/article/details/86739589)
+
+播放源
+
+4. [懒加载](https://www.cnblogs.com/lijuntao/p/7777581.html)
+
+懒加载
