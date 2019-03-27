@@ -16,7 +16,7 @@
     <div class="bg-layer" ref="layer"></div>
     <scroll @scroll="scroll" :probe-type="probeType" :listen-scroll="listenScroll" :data="songs" class="list" ref="list">
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list @select="selectItem" :songs="songs"></song-list>
       </div>
       <div class="loading-container" v-show="!songs.length">
         <loading></loading>
@@ -30,6 +30,7 @@ import Scroll from '@/base/scroll/scroll'
 import SongList from '@/base/song-list/song-list'
 import Loading from '@/base/loading/loading'
 import {prefixStyle} from 'common/js/dom'
+import {mapActions} from 'vuex'
 
 const RESERVED_HEIGHT = 40
 const transform = prefixStyle('transform')
@@ -65,7 +66,7 @@ export default {
     this.listenScroll = true
   },
   mounted () {
-    console.log(this.$refs.list)
+    // console.log(this.$refs.list)
     this.imageHeight = this.$refs.bgImage.clientHeight
     this.minTranslateY = -this.imageHeight + RESERVED_HEIGHT
     this.$refs.list.$el.style.top = `${this.imageHeight}px`
@@ -76,7 +77,16 @@ export default {
     },
     back () {
       this.$router.back() // 回到上一级
-    }
+    },
+    selectItem (item, index) {
+      this.selectPlay({
+        list: this.songs,
+        index
+      })
+    },
+    ...mapActions([
+      'selectPlay'
+    ])
   },
   watch: {
     scrollY (newY) {
