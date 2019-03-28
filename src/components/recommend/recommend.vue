@@ -40,6 +40,7 @@ import Scroll from '@/base/scroll/scroll'
 import Slider from '@/base/slider/slider'
 import {getRecommend, getDiscList} from '@/api/recommend'
 import {ERR_OK} from '@/api/config'
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -61,8 +62,15 @@ export default {
     },
     _getDiscList () {
       getDiscList().then((res) => {
+        // if (res.code === ERR_OK) {
+        //   // console.log(res.data)
+        //   this.discList = res.data.list
+        // }
+      })
+      axios.get('./static/discList.json').then(res => {
+        res = res.data
         if (res.code === ERR_OK) {
-          // console.log(res.data)
+          console.log(res.data)
           this.discList = res.data.list
         }
       })
