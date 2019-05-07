@@ -15,7 +15,7 @@
         <div class="recommend-list">
           <h1 class="list-title">热门歌单推荐</h1>
           <ul>
-            <li v-for="item in discList" :key="item.dissid" class="item">
+            <li v-for="item in discList" :key="item.dissid" class="item" @click="selectItem">
               <div class="icon">
                 <img v-lazy="item.imgurl" width="60" height="60">
               </div>
@@ -53,6 +53,12 @@ export default {
     this._getDiscList()
   },
   methods: {
+    selectItem () {
+      this.$router.push({
+        path: '/singer'
+      })
+      console.log('暂时只做了跳转至singer')
+    },
     _getRecommend () {
       getRecommend().then((res) => {
         if (res.code === ERR_OK) {
